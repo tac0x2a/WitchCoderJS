@@ -1,0 +1,19 @@
+{
+  "name": "judgesv_app_prototype",
+  "version": "1.0.0",
+  "description": "prototype of judge server app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tac0x2a/judgesv_app_prototype.git"
+  },
+  "author": "TAC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tac0x2a/judgesv_app_prototype/issues"
+  },
+  "homepage": "https://github.com/tac0x2a/judgesv_app_prototype#readme"
+}
