@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tac0x2a/judgesv_app_prototype/issues"
   },
-  "homepage": "https://github.com/tac0x2a/judgesv_app_prototype#readme"
+  "homepage": "https://github.com/tac0x2a/judgesv_app_prototype#readme",
+  "devDependencies": {
+    "express": "^4.13.4"
+  }
 }
