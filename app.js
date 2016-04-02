@@ -10,6 +10,40 @@ var users = require('./routes/users');
 
 var app = express();
 
+// auth with google --------------------------------------------------
+var auth_google_secret = require('./auth_google_secret');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var passport = require('passport');
+passport.use(new GoogleStrategy({
+  clientID:     auth_google_secret.clientID,
+  clientSecret: auth_google_secret.clientSecret,
+  callbackURL: '/auth/google/callback',
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile.displayName);
+    console.log(profile.emails[0].value);
+    console.log(profile.id);
+
+    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    //   return done(err, user);
+    // });
+  }
+));
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['email profile'] }));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log("RES:" + res);
+    // Authenticated successfully
+    res.redirect('/');
+  });
+
+//app.use('/auth', auth);
+// auth with google --------------------------------------------------
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
