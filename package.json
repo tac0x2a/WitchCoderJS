@@ -15,6 +15,7 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "mongoose": "^4.4.10",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0"
   }
