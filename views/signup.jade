@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= SignUp
+  p Welcome to SignUp
+
+  form(method="POST", action="/signup/return")
+    ul
+      label UserName:
+      input(type="text", name="name", value="")
+    ul
+      label Email:
+      input(type="text", name="email", value="")
+    ul
+      label Password:
+      input(type="password", name="password", value="")
+    ul
+      label Password Again:
+      input(type="password", name="password_again", value="")
+
+    input(type="submit", value="Submit")
+
+a(href="/users") Users
