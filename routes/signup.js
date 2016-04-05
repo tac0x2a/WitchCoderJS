@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+// Connect to DB
+var mongoose   = require('mongoose');
+mongoose.connect('mongodb://mongo/judge_sv');
 var User = require('../models/user.model');
 
 /* GET users listing. */
