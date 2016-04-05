@@ -2,16 +2,13 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var UserSchema = new Schema({
-  name: {
-    type: String
-  },
-  email: {
-    type: String,
-    lowercase: true
-  },
-  google_id: { // Google Oauth User ID
-    type: String
-  }
+  name:  { type: String },
+  email: { type: String, lowercase: true },
+
+ // Google Oauth User ID
+  google_id: {  type: String },
+  created:    { type: Date, default: Date.now },
+  updated:    { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("User", UserSchema);
