@@ -11,6 +11,10 @@ var signup = require('./routes/signup');
 
 var app = express();
 
+// Connect to DB
+var mongoose   = require('mongoose');
+mongoose.connect('mongodb://mongo/judge_sv');
+
 // auth with google --------------------------------------------------
 var auth_google_secret = require('./auth_google_secret');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
