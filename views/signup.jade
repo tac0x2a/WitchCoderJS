@@ -6,17 +6,37 @@ block content
       h2(class="ui teal image header")
         div(class="content") Welcome to Signup
 
+      if errors.email_eq || errors.name || errors.email || errors.password || errors.password_again || errors.email_eq
+        div(class="ui error message")
+          ui
+          if errors.email_eq
+            li #{errors.email_eq}
+          end
+          if errors.name
+            li #{errors.name}
+          end
+          if errors.email
+            li #{errors.email}
+          end
+          if errors.password
+            li #{errors.password}
+          end
+          if errors.password_again
+            li #{errors.password_again}
+          end
+      end
+
       form(method="POST", action="/signup/return" class="ui large form")
         div(class="ui stacked segment")
           div(class="field")
             div(class="ui left icon input")
               i(class="user icon")
-              input(type="text", name="name", placeholder="Your Account Name")
+              input(type="text", name="name", placeholder="Your Account Name", value="#{name}")
 
           div(class="field")
             div(class="ui left icon input")
               i(class="mail outline icon")
-              input(type="text", name="email", placeholder="E-mail address")
+              input(type="text", name="email", placeholder="E-mail address", value="#{email}")
 
           div(class="field")
             div(class="ui left icon input")
@@ -27,6 +47,8 @@ block content
               input(type="password", name="password_again", placeholder="PasswordAgain")
 
           input(type="submit" value="Signup" class="ui fluid large teal submit button")
+
+
 
       div(class="ui message")
         a(href="/") Back to Top

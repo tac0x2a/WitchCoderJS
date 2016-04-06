@@ -5,8 +5,12 @@ var auth = require('../auth');
 var User = require('../models/user.model');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.render('signup');
+router.get('/', function(req, res) {
+  res.render('signup', {
+    name: "",
+    email: "",
+    errors: {}
+  });
 });
 
 router.post('/return', function(req, res, next) {
@@ -16,18 +20,41 @@ router.post('/return', function(req, res, next) {
     var password   = auth.getHash(req.body.password);
     var password_a = auth.getHash(req.body.password_again);
 
+    //Check password input
+    if(req.body.password == ""){
+      res.render('signup', {
+        name: name, email: email, errors: {password: "Need password."}
+      });
+    }
+    if(req.body.password_again == ""){
+      res.render('signup', {
+        name: name, email: email, errors: {password_again: "Need password again." }
+      });
+    }
     if(password != password_a){
-      console.log("Is not matched password and again.")
-      res.redirect('/signup');
+      var message = "Is not matched password and again.";
+      console.log(message)
+      res.render('signup', {
+        name: name, email: email, errors: {email_eq: message }
+      });
     }
 
-    User.create({ name: name, email: email, password: password}, function (err, user) {
-      if (err) return handleError(err);
+    // User model validation
+    User.create({name: name, email: email, password: password}, function (err, user) {
+      if (err){
+        console.log("Error:", err.errors);
+        res.render('signup', {
+          name: name,
+          email: email,
+          errors: err.errors
+        });
+      } else {
+        //Todo: create session
+        console.log("Created User:", user.name, "/", user.email);
 
-      console.log("Created User:", name, "/", email);
+        res.redirect('/signup');
+      }
     });
-
-    res.redirect('/signup');
 });
 
 module.exports = router;
