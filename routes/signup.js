@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+var auth = require('../auth');
 var User = require('../models/user.model');
 
 /* GET users listing. */
@@ -9,14 +10,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/return', function(req, res, next) {
-    console.log(req.body);
 
-    var name  = req.body.name;
-    var email = req.body.email;
+    var name       = req.body.name;
+    var email      = req.body.email;
+    var password   = auth.getHash(req.body.password);
+    var password_a = auth.getHash(req.body.password_again);
 
-    User.create({ name: name, email: email}, function (err, user) {
+    if(password != password_a){
+      console.log("Is not matched password and again.")
+      res.redirect('/signup');
+    }
+
+    User.create({ name: name, email: email, password: password}, function (err, user) {
       if (err) return handleError(err);
-      //return done(err, user);
+
+      console.log("Created User:", name, "/", email);
     });
 
     res.redirect('/signup');
