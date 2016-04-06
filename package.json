@@ -13,9 +13,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
     "semantic-ui": "^2.1.8",
-    "serve-favicon": "~2.3.0"
-  },
-  "devDependencies": {
+    "serve-favicon": "~2.3.0",
     "mongoose": "^4.4.10",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0"
