@@ -21,22 +21,25 @@ router.post('/return', function(req, res, next) {
     var password_a = auth.getHash(req.body.password_again);
 
     //Check password input
-    if(req.body.password == ""){
+    if(req.body.password === ""){
       res.render('signup', {
         name: name, email: email, errors: {password: "Need password."}
       });
+      return next();
     }
-    if(req.body.password_again == ""){
+    if(req.body.password_again === ""){
       res.render('signup', {
         name: name, email: email, errors: {password_again: "Need password again." }
       });
+      return next();
     }
-    if(password != password_a){
+    if(!(password === password_a)){
       var message = "Is not matched password and again.";
       console.log(message)
       res.render('signup', {
         name: name, email: email, errors: {email_eq: message }
       });
+      return next();
     }
 
     // User model validation
@@ -48,10 +51,10 @@ router.post('/return', function(req, res, next) {
           email: email,
           errors: err.errors
         });
+        return next();
       } else {
         //Todo: create session
         console.log("Created User:", user.name, "/", user.email);
-
         res.redirect('/signup');
       }
     });
