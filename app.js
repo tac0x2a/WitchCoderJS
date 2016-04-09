@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -13,7 +14,7 @@ var app = express();
 
 // Connect to DB
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://mongo/judge_sv');
+mongoose.connect('mongodb://localhost/judge_sv'); //Todo: read from param file.
 
 // auth with google --------------------------------------------------
 var auth_google_secret = require('./auth_google_secret');
@@ -48,7 +49,6 @@ app.get('/auth/google/callback',
 //app.use('/auth', auth);
 // auth with google --------------------------------------------------
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -59,6 +59,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'session secret',  //Todo Change secretKey
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

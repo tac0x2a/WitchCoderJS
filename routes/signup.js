@@ -53,7 +53,7 @@ router.post('/return', function(req, res, next) {
         });
         return next();
       } else {
-        //Todo: create session
+        req.session.email = email;
         console.log("Created User:", user.name, "/", user.email);
         res.redirect('/signup');
       }
