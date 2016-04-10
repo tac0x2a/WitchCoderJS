@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var app = express();
 
@@ -13,38 +15,6 @@ var app = express();
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://localhost/judge_sv'); //Todo: read from param file.
 
-// auth with google --------------------------------------------------
-var auth_google_secret = require('./auth_google_secret');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var passport = require('passport');
-passport.use(new GoogleStrategy({
-  clientID:     auth_google_secret.clientID,
-  clientSecret: auth_google_secret.clientSecret,
-  callbackURL: '/auth/google/callback',
-  },
-  function(accessToken, refreshToken, profile, done) {
-    console.log(profile.displayName);
-    console.log(profile.emails[0].value);
-    console.log(profile.id);
-
-    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    //   return done(err, user);
-    // });
-  }
-));
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['email profile'] }));
-
-app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    console.log("RES:" + res);
-    // Authenticated successfully
-    res.redirect('/');
-  });
-
-//app.use('/auth', auth);
-// auth with google --------------------------------------------------
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -64,6 +34,73 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+// auth with google --------------------------------------------------
+var User = require('./models/user.model');
+var auth_google_secret = require('./auth_google_secret');
+passport.use(new GoogleStrategy({
+  clientID:     auth_google_secret.clientID,
+  clientSecret: auth_google_secret.clientSecret,
+  callbackURL: '/auth/google/callback',
+  },
+  function(accessToken, refreshToken, profile, done) {
+    var name  = profile.displayName;
+    var email = profile.emails[0].value;
+    var google_id = profile.id;
+
+    // Already exists same email ?
+    User.findOne({email: email}, function(err, user){
+      if(err){ return done(err); }
+      if(user){
+console.log("Already exists same email")
+        user.google_id = google_id;
+        user.save()
+        return done(null, user);
+      }
+    }); // end of User.findOne
+
+    // Already signuped by google ?
+    User.findOne({google_id: google_id}, function(err, user){
+      if(err){ return done(err); }
+      if(user){
+console.log("Already exists google_id")
+        return done(null, user)
+      }
+    }); // end of User.findOne
+
+    // Need Signup
+    User.create({name: name, email: email, google_id: google_id}, function (err, user) {
+      if(err){ return done(err) }
+console.log("Create new user by google_id")
+      return done(null, user)
+    });
+
+    return done(null, false);
+  }
+)); // end of passport.use GoogleStrategy
+
+passport.serializeUser(function(user, done) {
+  done(null, user.email);
+});
+passport.deserializeUser(function(email, done) {
+  User.findOne({email: email}, function(err, user) {
+    done(err, user);
+  });
+});
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['email profile'] })
+);
+
+app.get('/auth/google/callback',
+  passport.authenticate('google',
+    { successRedirect: '/',  failureRedirect: '/login' }
+  )
+);
+
+//app.use('/auth', auth);
+// auth with google --------------------------------------------------
 
 // Routes
 app.use('/',       require('./routes/index'));
@@ -101,6 +138,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

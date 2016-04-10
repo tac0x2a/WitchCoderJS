@@ -5,7 +5,7 @@ var Schema   = mongoose.Schema;
 var UserSchema = new Schema({
   name:     { type: String, required: "Name is needed." },
   email:    { type: String, required: "Email is needed.", lowercase: true, unique: true },
-  password: { type: String, required: "Password is needed." },
+  password: { type: String, default: "" },
 
  // Google Oauth User ID
   google_id: { type: String, default: "" },
