@@ -6,9 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var signup = require('./routes/signup');
 
 var app = express();
 
@@ -65,10 +62,14 @@ app.use(session({
   saveUninitialized: false
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/signup', signup);
+// Routes
+app.use('/',       require('./routes/index'));
+app.use('/users',  require('./routes/users'));
+app.use('/signup', require('./routes/signup'));
+app.use('/login',  require('./routes/login'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
