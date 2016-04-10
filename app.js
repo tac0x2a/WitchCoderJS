@@ -50,34 +50,21 @@ passport.use(new GoogleStrategy({
     var google_id = profile.id;
 
     // Already exists same email ?
-    User.findOne({email: email}, function(err, user){
+    User.findOne( {$or:[{email: email}, {google_id: google_id}]}, function(err, user){
       if(err){ return done(err); }
       if(user){
-console.log("Already exists same email")
+        user.email     = email;
         user.google_id = google_id;
         user.save()
         return done(null, user);
       }
-    }); // end of User.findOne
-
-    // Already signuped by google ?
-    User.findOne({google_id: google_id}, function(err, user){
-      if(err){ return done(err); }
-      if(user){
-console.log("Already exists google_id")
+      // Need Signup
+      User.create({name: name, email: email, google_id: google_id}, function (err, user) {
+        if(err){ return done(err) }
         return done(null, user)
-      }
+      });
     }); // end of User.findOne
-
-    // Need Signup
-    User.create({name: name, email: email, google_id: google_id}, function (err, user) {
-      if(err){ return done(err) }
-console.log("Create new user by google_id")
-      return done(null, user)
-    });
-
-    return done(null, false);
-  }
+  } // end of function(accessToken, refreshToken, profile, done)
 )); // end of passport.use GoogleStrategy
 
 passport.serializeUser(function(user, done) {
