@@ -53,6 +53,11 @@ router.post('/return', function(req, res, next) {
         });
         return next();
       } else {
+        req.login(user, function(err){
+          if(err){ next(err); }
+          res.redirect('/signup');
+        })
+
         req.session.email = email;
         console.log("Created User:", user.name, "/", user.email);
         res.redirect('/signup');

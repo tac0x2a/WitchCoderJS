@@ -3,7 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', email: req.session.email || "NotLogin" });
+  var name = req.user && req.user['name'] || "NotLogin"
+  res.render('index', { title: 'Express', name: name});
 });
 
 module.exports = router;
