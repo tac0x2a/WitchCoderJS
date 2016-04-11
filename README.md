@@ -1,12 +1,12 @@
-# judgesv_app_prototype
-Prototype of Judge server app.
+# WitchCoder
+WitchCoder is online judge platform.
 
 # How to run
 
 ```
 $ git clone git@github.com:tac0x2a/judgesv_devenv.git
 $ cd judgesv_devenv/
-$ git clone git@github.com:tac0x2a/judgesv_app_prototype.git data/work
+$ git clone git@github.com:tac0x2a/WitchCoder.git data/WitchCoder
 $ docker-compose build
 $ docker-compose pull
 $ docker-compose up -d
