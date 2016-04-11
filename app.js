@@ -91,7 +91,7 @@ app.get('/auth/google/callback',
 
 // Routes
 app.use('/',       require('./routes/index'));
-app.use('/users',  require('./routes/users'));
+app.use('/user',   require('./routes/user'));
 app.use('/signup', require('./routes/signup'));
 app.use('/login',  require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
