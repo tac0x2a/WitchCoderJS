@@ -9,6 +9,15 @@ html
   body
     div(class="ui fixed inverted menu")
       div(class="ui container")
-        a(href="#" class="item") WitchCoder
+        a(href="/" class="item")= title
+        
+      div(class="right menu")
+        if(user_name)
+          a(href="/user" class="item") #{user_name}
+          a(href="/logout" class="item") Logout
+        else
+          a(href="/login" class="item") Login
+          a(href="/signup" class="item") Signup
+        end
   
     block content
