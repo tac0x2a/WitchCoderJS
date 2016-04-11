@@ -3,13 +3,26 @@ WitchCoder is online judge platform.
 
 # How to run
 
+## For Docker
 ```
-$ git clone git@github.com:tac0x2a/judgesv_devenv.git
-$ cd judgesv_devenv/
-$ git clone git@github.com:tac0x2a/WitchCoder.git data/WitchCoder
+$ git clone git@github.com:tac0x2a/WitchCoder-devenv.git
+$ cd WitchCoder-devenv
+$ git clone git@github.com:tac0x2a/WitchCoder.git data/witchcoder
 $ docker-compose build
 $ docker-compose pull
 $ docker-compose up -d
+```
+
+## For Mac
+```
+# Install mongo
+$ brew install mongodb
+$ mongod --config /usr/local/etc/mongod.conf &
+
+$ git clone git@github.com:tac0x2a/WitchCoder.git
+$ cd WitchCoder
+$ npm install
+$ npm start
 ```
 
 then, connect docker container port 3000.
