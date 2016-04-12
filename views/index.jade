@@ -4,17 +4,14 @@ block content
   div(class="ui middle aligned center aligned grid")
     div(class="column")
 
-      h1= title
-      p #{welcome_msg}
+      h1= app_name
+      p #{config['welcome_msg']}
+
+      div(class="ui message")
+        a(href="/login") Login with Email Address
 
       div(class="ui message")
         a(href="/auth/google") Login with Google
-
-      div(class="ui message")
-        a(href="/login") Login
-
-      div(class="ui message")
-        a(href="/logout") Logout
 
       div(class="ui message")
         a(href="/signup") Signup

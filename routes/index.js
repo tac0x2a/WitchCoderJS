@@ -4,12 +4,10 @@ var config = require('../config');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var user_name = req.user && req.user['name']
+  var user = req.user
   res.render('index', {
-    title:       config['app_name'],
-    welcome_msg: config['welcome_msg'],
-    app_desc:    config['app_desc'],
-    user_name:   user_name
+    config: config,
+    user: user
   });
 });
 

@@ -1,19 +1,19 @@
 doctype html
 html
   head
-    title= title
+    title= config['app_name']
     link(rel='stylesheet', type='text/css' href='/semantic/dist/semantic.min.css')
     script(src='/semantic/dist/semantic.min.js')
     style(type="text/css") .column {max-width: 450px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .image { margin-top: -100px; }
 
   body
     div(class="ui fixed inverted menu")
-      div(class="ui container")
-        a(href="/" class="item")= title
+      div(class="ui container") 
+        a.item(href="/")= config['app_name']
         
       div(class="right menu")
-        if(user_name)
-          a(href="/user" class="item") #{user_name}
+        if(user)
+          a(href="/user" class="item")= user['name']
           a(href="/logout" class="item") Logout
         else
           a(href="/login" class="item") Login

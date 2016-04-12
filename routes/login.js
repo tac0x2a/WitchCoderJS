@@ -1,6 +1,8 @@
 var auth = require('../auth');
 var User = require('../models/user.model');
 
+var config = require('../config');
+
 // Passport -----------------------------------------------
 var passport_local = require("passport")
 var LocalStrategy  = require("passport-local").Strategy;
@@ -42,11 +44,15 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
+  if(req.user){
+    res.redirect('/user')
+  }
   console.log("root.:", req.body);
   if(typeof req.session.email !== "undefined"){
     console.log("Already loggedin.");
   }
   res.render('login', {
+    config: config,
     email: "",
     errors: {}
   });

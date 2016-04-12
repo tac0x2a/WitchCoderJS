@@ -3,5 +3,5 @@ extends layout
 block content
   div(class="ui main text container")
     h1(class"ui header") hoge
-    h1 #{name}
-    h1 #{email}
+    h1= user.name
+    h1= user.email
