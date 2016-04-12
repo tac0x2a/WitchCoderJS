@@ -44,23 +44,12 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  if(req.user){
-    res.redirect('/user')
-  }
-  console.log("root.:", req.body);
-  if(typeof req.session.email !== "undefined"){
-    console.log("Already loggedin.");
-  }
-  res.render('login', {
-    config: config,
-    email: "",
-    errors: {}
-  });
+  if(req.user){ res.redirect('/user') }
+  res.render('login', {config: config, email: "", errors: {}});
 });
 
 router.post('/return',
-  passport_local.authenticate(
-    "local",
+  passport_local.authenticate( "local",
     { successRedirect: '/',  failureRedirect: '/login' }
   )
 );

@@ -1,23 +1,23 @@
 doctype html
 html
   head
-    title= config['app_name']
+    title= config.app_name
     link(rel='stylesheet', type='text/css' href='/semantic/dist/semantic.min.css')
     script(src='/semantic/dist/semantic.min.js')
     style(type="text/css") .column {max-width: 450px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .image { margin-top: -100px; }
 
   body
-    div(class="ui fixed inverted menu")
-      div(class="ui container") 
-        a.item(href="/")= config['app_name']
+    .ui.fixed.inverted.menu
+      .ui.container
+        a.item(href="/")= config.app_name
         
-      div(class="right menu")
+      .right.menu
         if(user)
-          a(href="/user" class="item")= user['name']
-          a(href="/logout" class="item") Logout
+          a.item(href="/user")= user['name']
+          a.item(href="/logout") Logout
         else
-          a(href="/login" class="item") Login
-          a(href="/signup" class="item") Signup
+          a.item(href="/login") Login
+          a.item(href="/signup") Signup
         end
   
     block content

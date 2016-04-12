@@ -2,42 +2,40 @@ extends layout
 
 block content
 
-  div(class="ui middle aligned center aligned grid")
-    div(class="column")
-
-      h2(class="ui teal image header")
-        div(class="content") Welcome to Express
+  .ui.middle.aligned.center.aligned.grid
+    .column
+      h1.ui.teal.image.header.content #{config.app_name} - Login
 
       if errors.email || errors.password
-        div(class="ui error message")
+        .ui.error.message
           ui
           if errors.email
-            li #{errors.email}
+            li #{message.email}
           end
           if errors.password
-            li #{errors.password}
+            li #{erros.password}
           end
       end
 
-      form(method="POST", action="/login/return" class="ui large form")
-        div(class="ui stacked segment")
+      .ui.large.form(method="POST", action="/login/return")
+        .ui.stacked.segment
 
-          div(class="field")
-            div(class="ui left icon input")
-              i(class="mail outline icon")
+          .field
+            .ui.left.icon.input
+              i.mail.outline.icon
               input(type="text", name="email", placeholder="E-mail address", value="#{email}")
 
-          div(class="field")
-            div(class="ui left icon input")
-              i(class="lock icon")
+          .field
+            .ui.left.icon.input
+              i.lock.icon
               input(type="password", name="password", placeholder="Password")
 
-          input(type="submit" value="Login" class="ui fluid large teal submit button")
+          input.ui.fluid.large.teal.submit.button(type="submit" value="Login")
 
-      div(class="ui message")
-        i(class="mail outline icon")
+      .ui.message
+        i.mail.outline.icon
         a(href="/signup") Signup?
 
-      div(class="ui message")
-        i(class="google plus icon")
+      .ui.message
+        i.google.plus.icon
         a(href="/auth/google") Login with Google

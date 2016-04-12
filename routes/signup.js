@@ -7,15 +7,8 @@ var User = require('../models/user.model');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-  if(req.user){
-    res.redirect('/user')
-  }
-  res.render('signup', {
-    config: config,
-    name: "",
-    email: "",
-    errors: {}
-  });
+  if(req.user){ res.redirect('/user') }
+  res.render('signup', { config: config, name: "",  email: "", errors: {} });
 });
 
 router.post('/return', function(req, res, next) {

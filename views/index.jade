@@ -1,17 +1,17 @@
 extends layout
 
 block content
-  div(class="ui middle aligned center aligned grid")
-    div(class="column")
+  .ui.middle.aligned.center.aligned.grid
+    .column
 
-      h1= app_name
+      h1= config['app_name']
       p #{config['welcome_msg']}
 
-      div(class="ui message")
+      .ui.message
         a(href="/login") Login with Email Address
 
-      div(class="ui message")
+      .ui.message
         a(href="/auth/google") Login with Google
 
-      div(class="ui message")
+      .ui.message
         a(href="/signup") Signup
