@@ -4,7 +4,8 @@ block content
 
   .ui.middle.aligned.center.aligned.grid
     .column
-      h1.ui.teal.image.header.content #{config.app_name} - Login
+      .ui.teal.image.header.content
+        h1 #{config.app_name} - Login
 
       if errors.email || errors.password
         .ui.error.message
@@ -17,7 +18,7 @@ block content
           end
       end
 
-      .ui.large.form(method="POST", action="/login/return")
+      form.ui.large.form(method="POST", action="/login/return")
         .ui.stacked.segment
 
           .field
