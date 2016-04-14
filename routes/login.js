@@ -7,24 +7,37 @@ var config = require('../config');
 var passport_local = require("passport")
 var LocalStrategy  = require("passport-local").Strategy;
 
+
+function loginValidate(user, email, password){
+  if(email === ""){
+    return {result: false, message: {message: "Email is required."}}
+  }
+  if(password === ""){
+    return {result: false, message: {message: "Password is required."}}
+  }
+  if(!user){
+    return {result: false, message: {message: "User is not found."}}
+  }
+  if(user.password !== password){
+    return {result: false, message: {message: "Password is incorrect."}}
+  }
+
+  return {
+    'result': user,
+    'message' : {message: "Login success."}
+  }
+}
+
 passport_local.use(new LocalStrategy(
   {usernameField: "email", passwordField: "password"},
   function(email, password, done){
     User.findOne({email: email}, function(err, user){
       if(err){ return done(err); }
 
-      if(!user){
-        var message = "Email not found '" + email + "'";
-        return done(null, false, {message: message});
-      }
+      var hPassword = auth.getHash(password)
+      var r = loginValidate(user, email, hPassword)
 
-      var hashedPassword = auth.getHash(password)
-      if(user.password !== hashedPassword){
-        var message = "Incorrect password"
-        return done(null, false, {message: message});
-      }
-
-      return done(null, user)
+      return done(null, r.result, r.message)
     }); // end of User.findOne
   }
 )); // end of passport_local
@@ -55,3 +68,4 @@ router.post('/return',
 );
 
 module.exports = router;
+module.exports.loginValidate = loginValidate;
