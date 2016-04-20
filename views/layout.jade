@@ -9,7 +9,9 @@ html
   body
     .ui.fixed.inverted.menu
       .ui.container
-        a.item(href="/")= app_name
+        a.header.item(href="/")        
+          img.logo(src="/images/logo_menu.png")
+          = app_name
         
       .right.menu
         if(user)

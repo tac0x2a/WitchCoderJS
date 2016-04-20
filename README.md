@@ -27,3 +27,7 @@ $ npm start
 ```
 
 then, connect docker container port 3000.
+
+
+#### Thanks
+icon image - http://www.sozai-library.com/sozai/5696
