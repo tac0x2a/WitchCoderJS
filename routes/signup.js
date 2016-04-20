@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var config = require('../config');
 
 var auth = require('../auth');
 var User = require('../models/user.model');
@@ -8,7 +7,7 @@ var User = require('../models/user.model');
 /* GET users listing. */
 router.get('/', function(req, res) {
   if(req.user){ res.redirect('/user') }
-  res.render('signup', { config: config, name: "",  email: "", errors: {} });
+  res.render('signup', {name: "",  email: "", errors: {} });
 });
 
 router.post('/return', function(req, res, next) {
@@ -21,14 +20,12 @@ router.post('/return', function(req, res, next) {
     //Check password input
     if(req.body.password === ""){
       res.render('signup', {
-        config: config,
         name: name, email: email, errors: {password: "Need password."}
       });
       return next();
     }
     if(req.body.password_again === ""){
       res.render('signup', {
-        config: config,
         name: name, email: email, errors: {password_again: "Need password again." }
       });
       return next();
@@ -37,7 +34,6 @@ router.post('/return', function(req, res, next) {
       var message = "Is not matched password and again.";
       console.log(message)
       res.render('signup', {
-        config: config,
         name: name, email: email, errors: {email_eq: message }
       });
       return next();
@@ -48,7 +44,6 @@ router.post('/return', function(req, res, next) {
       if (err){
         console.log("Error:", err.errors);
         res.render('signup', {
-          config: config,
           name: name,
           email: email,
           errors: err.errors

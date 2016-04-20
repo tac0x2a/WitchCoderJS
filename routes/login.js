@@ -1,8 +1,6 @@
 var auth = require('../auth');
 var User = require('../models/user.model');
 
-var config = require('../config');
-
 // Passport -----------------------------------------------
 var passport_local = require("passport")
 var LocalStrategy  = require("passport-local").Strategy;
@@ -58,12 +56,15 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
   if(req.user){ res.redirect('/user') }
-  res.render('login', {config: config, email: "", errors: {}});
+  res.render('login', {email: "", errors: {}});
 });
 
 router.post('/return',
   passport_local.authenticate( "local",
-    { successRedirect: '/',  failureRedirect: '/login' }
+    {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    }
   )
 );
 

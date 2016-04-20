@@ -5,7 +5,9 @@ block content
   .ui.middle.aligned.center.aligned.grid
     .column
       .ui.teal.image.header.content
-        h1 #{config.app_name} - Login
+        h1 #{app_name} - Login
+        
+        h1= error
 
       if errors.email || errors.password
         .ui.error.message

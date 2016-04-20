@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title= config.app_name
+    title= app_name
     link(rel='stylesheet', type='text/css' href='/semantic/dist/semantic.min.css')
     script(src='/semantic/dist/semantic.min.js')
     style(type="text/css") .column {max-width: 450px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .image { margin-top: -100px; }
@@ -9,7 +9,7 @@ html
   body
     .ui.fixed.inverted.menu
       .ui.container
-        a.item(href="/")= config.app_name
+        a.item(href="/")= app_name
         
       .right.menu
         if(user)

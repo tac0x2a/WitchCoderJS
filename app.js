@@ -11,10 +11,14 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var app = express();
 
+// LoadEnvironment
+var config = require('./config');
+app.locals = config
+
+
 // Connect to DB
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://localhost/judge_sv'); //Todo: read from param file.
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
