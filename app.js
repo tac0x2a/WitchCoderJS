@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var flash = require('connect-flash');
 
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -35,9 +36,11 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 
 // auth with google --------------------------------------------------
