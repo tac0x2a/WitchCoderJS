@@ -4,6 +4,27 @@ var router = express.Router();
 var auth = require('../auth');
 var User = require('../models/user.model');
 
+function signupValidate(name, email, password, password_a){
+  if(name === ""){
+    return { 'result': false, 'errors' : ['Name is required.']}
+  }
+  if(email === ""){
+    return { 'result': false, 'errors' : ['Email is required.']}
+  }
+  if(password === ""){
+    return { 'result': false, 'errors' : ['Password is required.']}
+  }
+  if(password_a === ""){
+    return { 'result': false, 'errors' : ['Please repeat password again.']}
+  }
+  if(!(password === password_a)){
+    return { 'result': false, 'errors' : ['Different passwords.']}
+  }
+
+  return { 'result': true, 'message' : []}
+}
+
+
 /* GET users listing. */
 router.get('/', function(req, res) {
   if(req.user){ res.redirect('/user') }
@@ -12,54 +33,34 @@ router.get('/', function(req, res) {
 
 router.post('/return', function(req, res, next) {
 
-    var name       = req.body.name;
-    var email      = req.body.email;
-    var password   = auth.getHash(req.body.password);
-    var password_a = auth.getHash(req.body.password_again);
+  var name   = req.body.name;
+  var email  = req.body.email;
+  var pass   = req.body.password;
+  var pass_a = req.body.password_again;
 
-    //Check password input
-    if(req.body.password === ""){
-      res.render('signup', {
-        name: name, email: email, errors: {password: "Need password."}
-      });
-      return next();
-    }
-    if(req.body.password_again === ""){
-      res.render('signup', {
-        name: name, email: email, errors: {password_again: "Need password again." }
-      });
-      return next();
-    }
-    if(!(password === password_a)){
-      var message = "Is not matched password and again.";
-      console.log(message)
-      res.render('signup', {
-        name: name, email: email, errors: {email_eq: message }
-      });
-      return next();
-    }
-
-    // User model validation
-    User.create({name: name, email: email, password: password}, function (err, user) {
-      if (err){
-        console.log("Error:", err.errors);
-        res.render('signup', {
-          name: name,
-          email: email,
-          errors: err.errors
-        });
-        return next();
-      } else {
-        req.login(user, function(err){
-          if(err){ next(err); }
-          res.redirect('/signup');
-        })
-
-        req.session.email = email;
-        console.log("Created User:", user.name, "/", user.email);
-        res.redirect('/signup');
-      }
+  //Check password input
+  var r = signupValidate(name, email, pass, pass_a )
+  if( !r.result ){
+    res.render('signup', {
+      name: name, email: email, errors: r.errors
     });
-});
+    return;
+  }
+
+  var password   = auth.getHash(req.body.password);
+  var password_a = auth.getHash(req.body.password_again);
+
+  // User model validation
+  User.create({name: name, email: email, password: password}, function (err, user) {
+    if (err){
+      return res.render('signup', {name: name, email: email, errors: err.message});
+    }
+    req.login(user, function(err){
+      if(err){ return; }
+      return res.redirect('/');
+    })// end of login
+  }) // end of User.create
+}); // end of router
 
 module.exports = router;
+module.exports.signupValidate = signupValidate;

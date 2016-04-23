@@ -6,25 +6,12 @@ block content
       .ui.teal.image.header
         h1.content #{app_name} - Signup
 
-      if errors.email_eq || errors.name || errors.email || errors.password || errors.password_again || errors.email_eq
+      if errors.length > 0
         .ui.error.message
-          if errors.email_eq
-            li #{errors.email_eq}
-          end
-          if errors.name
-            li #{errors.name}
-          end
-          if errors.email
-            li #{errors.email}
-          end
-          if errors.password
-            li #{errors.password}
-          end
-          if errors.password_again
-            li #{errors.password_again}
+          each em in errors  
+            li= em
           end
       end
-
       form.ui.large.form(method="POST", action="/signup/return")
         .ui.stacked.segment
           .field
