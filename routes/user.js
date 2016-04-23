@@ -7,7 +7,7 @@ var User = require('../models/user.model');
 router.get('/', function(req, res, next) {
   var user = req.user
   if(user){
-    res.render('user', { user: user });
+    return res.render('user', { user: user });
   }
   res.redirect('/login')
 });
