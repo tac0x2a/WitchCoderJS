@@ -6,7 +6,7 @@ block content
       center
         img.ui.small.image(src="/images/logo_top.png")
       h1= app_name
-      p= welcome_msg
+      p #{welcome_msg} Registered {{t.count}} users.
 
       .ui.message
         a(href="/login") Login with Email Address
@@ -16,5 +16,3 @@ block content
 
       .ui.message
         a(href="/signup") Signup
-        
-      h1 Sample {{t.name}}!

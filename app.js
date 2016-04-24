@@ -106,6 +106,7 @@ app.use('/user',   require('./routes/user'));
 app.use('/signup', require('./routes/signup'));
 app.use('/login',  require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
+app.use('/api/users', require('./routes/api/users'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
