@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .ui.middle.aligned.center.aligned.grid
+  .ui.middle.aligned.center.aligned.grid(ng-controller='testCtrl as t')
     .column
       center
         img.ui.small.image(src="/images/logo_top.png")
@@ -16,3 +16,5 @@ block content
 
       .ui.message
         a(href="/signup") Signup
+        
+      h1 Sample {{t.name}}!

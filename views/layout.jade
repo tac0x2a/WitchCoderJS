@@ -1,9 +1,11 @@
 doctype html
-html
+html(ng-app="testapp")
   head
     title= app_name
     link(rel='stylesheet', type='text/css' href='/semantic/dist/semantic.min.css')
     script(src='/semantic/dist/semantic.min.js')
+    script(src='/angular/angular.min.js')
+    script(src='/javascripts/index.js')      
     style(type="text/css") .column {max-width: 450px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .image { margin-top: -100px; }
 
   body

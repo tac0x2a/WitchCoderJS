@@ -41,6 +41,7 @@ app.use('/images', express.static(path.join(__dirname, 'public','images')));
 app.use('/javascripts',express.static(path.join(__dirname, 'public','javascripts')));
 app.use('/stylesheets',express.static(path.join(__dirname, 'public','stylesheets')));
 app.use('/semantic',express.static(path.join(__dirname, 'public','semantic')));
+app.use('/angular',express.static(path.join(__dirname, 'public','components','angular')));
 app.use(passport.initialize());
 app.use(passport.session());
 
