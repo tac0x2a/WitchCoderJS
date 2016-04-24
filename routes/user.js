@@ -12,4 +12,15 @@ router.get('/', function(req, res, next) {
   res.redirect('/login')
 });
 
+router.get('/:user_id', function(req, res, next) {
+  User.findById(req.params.user_id, function(err, user){
+    if(err || user == null){
+      res.status(404);
+      return res.send("User not found.")
+    }
+    return res.render('user', { user: user });
+  })
+});
+
+
 module.exports = router;

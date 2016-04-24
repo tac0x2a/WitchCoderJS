@@ -6,7 +6,7 @@ html(ng-app="testapp")
     script(src='/semantic/dist/semantic.min.js')
     script(src='/angular/angular.min.js')
     script(src='/javascripts/index.js')      
-    style(type="text/css") .column {max-width: 450px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .image { margin-top: -100px; }
+    style(type="text/css") .column {max-width: 450px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .main.container {margin-top: 7em;}
 
   body
     .ui.fixed.inverted.menu
@@ -23,5 +23,5 @@ html(ng-app="testapp")
           a.item(href="/login") Login
           a.item(href="/signup") Signup
         end
-  
+        
     block content
