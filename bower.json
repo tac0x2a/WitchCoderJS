@@ -1,0 +1,19 @@
+{
+  "name": "WitchCoder",
+  "description": "",
+  "main": "",
+  "authors": [
+    "TAC <tac@tac42.net>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tac0x2a/WitchCoder",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
