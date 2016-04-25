@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  .ui.middle.aligned.center.aligned.grid
+    .column
+      form.ui.large.form(method="POST", action="/problem/new")
+        .ui.stacked.segment
+          .field
+            ui.massive.icon.input
+              input(type='text' name='title' placeholder='ProblemTitle')
+          .field
+            ui.massive.icon.input
+              textarea(name='problem' rows="12" placeholder='Problem')
+              
+          .circular.positive.ui.labeled.icon.button Add Test Case
+            i.icon.plus
+
+        input.fluid.ui.primary.button(type="submit" value="Submit")
+          

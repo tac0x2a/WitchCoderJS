@@ -10,4 +10,8 @@ router.get('/', function(req, res, next) {
   })
 });
 
-module.exports = router; 
+router.get('/new', function(req, res, next){
+  return res.render('problem')
+});
+
+module.exports = router;
