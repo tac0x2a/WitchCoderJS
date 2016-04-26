@@ -10,5 +10,18 @@ function index($timeout, $http){
     t.count = res.data.user_count
   })
 }
-
 App.controller("index", index)
+
+
+
+function newProblem(){
+  var t = this;
+  t.testCases = [{in:"", exptected:""}]
+
+  t.addTestCase = function(){
+    t.testCases.push({in:"", out:""})
+    t.cnt = t.cnt + 1
+  }
+
+}
+App.controller("newProblem", newProblem)

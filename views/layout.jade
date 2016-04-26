@@ -3,25 +3,24 @@ html(ng-app="witch_coder")
   head
     title= app_name
     link(rel='stylesheet', type='text/css' href='/semantic/dist/semantic.min.css')
+    script(src='/jquery/jquery.min.js')
     script(src='/semantic/dist/semantic.min.js')
     script(src='/angular/angular.min.js')
     script(src='/javascripts/app_angular.js')      
-    style(type="text/css") .column {max-width: 450px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .main.container {margin-top: 7em;}
+    style(type="text/css") .column {max-width: 600px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .main.container {margin-top: 7em;}
 
   body
-    .ui.fixed.inverted.menu
-      .ui.container
-        a.header.item(href="/")        
-          img.logo(src="/images/logo_menu.png")
-          = app_name
+    .ui.stackable.fixed.inverted.container.menu
+      a.header.item(href="/")        
+        img.logo(src="/images/logo_menu.png")
+        = app_name
         
       .right.menu
-        if(user)
-          a.item(href="/user")= user['name']
-          a.item(href="/logout") Logout
-        else
-          a.item(href="/login") Login
-          a.item(href="/signup") Signup
-        end
+      if(user)
+        a.item(href="/user")= user['name']
+        a.item(href="/logout") Logout
+      else
+        a.item(href="/login") Login
+        a.item(href="/signup") Signup
         
     block content

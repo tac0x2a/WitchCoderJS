@@ -1,19 +1,27 @@
 extends layout
 
 block content
-  .ui.middle.aligned.center.aligned.grid
+  .ui.middle.aligned.center.aligned.grid(ng-controller="newProblem as p")
     .column
       form.ui.large.form(method="POST", action="/problem/new")
-        .ui.stacked.segment
+        .ui.segment
           .field
             ui.massive.icon.input
               input(type='text' name='title' placeholder='ProblemTitle')
           .field
             ui.massive.icon.input
               textarea(name='problem' rows="12" placeholder='Problem')
-              
-          .circular.positive.ui.labeled.icon.button Add Test Case
-            i.icon.plus
+          
+          .field
+            p TestCases
+            .ui.two.column.grid(ng-repeat="tc in p.testCases")
+              .ten.wide.column
+                input(type='text' name='title' rows="2" placeholder='Input' value="{{tc.in}}")
+              .six.wide.column
+                input(type='text' name='title' rows="2" placeholder='Expected' value="{{tc.exptected}}")
+                
+          .field
+            .circular.ui.labeled.icon.button(ng-click="p.addTestCase()") Add Test Case
+              i.icon.plus
 
         input.fluid.ui.primary.button(type="submit" value="Submit")
-          
