@@ -16,9 +16,9 @@ block content
             p TestCases
             .ui.two.column.grid(ng-repeat="tc in p.testCases")
               .ten.wide.column
-                input(type='text' name='title' rows="2" placeholder='Input' value="{{tc.in}}")
+                textarea(name='input' rows="2" placeholder='Input' value="{{tc.in}}")
               .six.wide.column
-                input(type='text' name='title' rows="2" placeholder='Expected' value="{{tc.exptected}}")
+                textarea(name='expected' rows="2" placeholder='Expected' value="{{tc.exptected}}")
                 
           .field
             .circular.ui.labeled.icon.button(ng-click="p.addTestCase()") Add Test Case
