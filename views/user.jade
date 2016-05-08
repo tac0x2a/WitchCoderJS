@@ -1,7 +1,7 @@
 extends layout
 
 block content  
-  .ui.main.text.container
+  .container
     h1.ui.header= user.name
     h1= user.email
     a(href='/user/#{user._id}')

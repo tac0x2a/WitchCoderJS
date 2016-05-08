@@ -40,7 +40,7 @@ app.use(flash());
 app.use('/images', express.static(path.join(__dirname, 'public','images')));
 app.use('/javascripts',express.static(path.join(__dirname, 'public','javascripts')));
 app.use('/stylesheets',express.static(path.join(__dirname, 'public','stylesheets')));
-app.use('/semantic',express.static(path.join(__dirname, 'public','semantic')));
+app.use('/bootstrap',express.static(path.join(__dirname, 'public','bootstrap')));
 app.use('/angular',express.static(path.join(__dirname, 'public','components','angular')));
 app.use('/jquery',express.static(path.join(__dirname, 'public','components','jQuery','dist')));
 app.use(passport.initialize());

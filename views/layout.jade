@@ -1,26 +1,40 @@
-doctype html
+doctype html(lang="en")
 html(ng-app="witch_coder")
   head
     title= app_name
-    link(rel='stylesheet', type='text/css' href='/semantic/dist/semantic.min.css')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', type='text/css' href='/bootstrap/css/bootstrap.min.css')
     script(src='/jquery/jquery.min.js')
-    script(src='/semantic/dist/semantic.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
     script(src='/angular/angular.min.js')
-    script(src='/javascripts/app_angular.js')      
-    style(type="text/css") .column {max-width: 600px;} body {background-color: #DADADA; } body > .grid { height: 100%; } .main.container {margin-top: 7em;}
-
+    script(src='/javascripts/app_angular.js')
+    style(type="text/css") body {background-color: #DADADA; padding-top:60px;}
+    
   body
-    .ui.stackable.fixed.inverted.container.menu
-      a.header.item(href="/")        
-        img.logo(src="/images/logo_menu.png")
-        = app_name
-        
-      .right.menu
-      if(user)
-        a.item(href="/user")= user['name']
-        a.item(href="/logout") Logout
-      else
-        a.item(href="/login") Login
-        a.item(href="/signup") Signup
-        
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="/")
+            img.logo(style="max-height:30px; margin-top: -5px;" src="/images/logo_menu.png")
+            
+        div.collapse.navbar-collapse.navbar-right(id='navbar')
+          ul.nav.navbar-nav
+            if(user)
+              li
+                a(href="/user")= user['name']
+              li
+                a(href="/logout") Logout
+            else
+              li
+                a(href="/login") Login with Email
+              li 
+                a(href="/auth/google") Login with Google
+              li
+                a(href="/signup") Signup
+
     block content

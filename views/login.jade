@@ -1,36 +1,30 @@
 extends layout
 
 block content
-
-  .ui.middle.aligned.center.aligned.grid
-    .column
-      .ui.teal.image.header.content
-        h1 #{app_name} - Login
+  .container(style="max-width:330px;")
+    center
+      img(style="max-height:160px;" src="/images/logo_top.png")
+      h1 Login
 
       if error.toString()
-        .ui.error.message
+        .alert.alert-danger(role="alert")
           li= error
-      end
 
-      form.ui.large.form(method="POST", action="/login/return")
-        .ui.stacked.segment
+      form(method="POST", action="/login/return")
+        p.input-group
+          span.input-group-addon
+            span.glyphicon.glyphicon-envelope(aria-hidden="true")
+          input.form-control(type="email", name="email", placeholder="E-mail address", value="#{email.toString()}")
+          
+        p.input-group
+          span.input-group-addon
+            span.glyphicon.glyphicon-console(aria-hidden="true")
+          input.form-control(type="password", name="password", placeholder="Password")
+            
+        input.btn.btn-block.btn-primary(type="submit" value="Login")
 
-          .field
-            .ui.left.icon.input
-              i.mail.outline.icon
-              input(type="email", name="email", placeholder="E-mail address", value="#{email.toString()}")
-
-          .field
-            .ui.left.icon.input
-              i.lock.icon
-              input(type="password", name="password", placeholder="Password")
-
-          input.ui.fluid.large.teal.submit.button(type="submit" value="Login")
-
-      .ui.message
-        i.mail.outline.icon
+      p
         a(href="/signup") Signup?
-
-      .ui.message
-        i.google.plus.icon
+        
+      p
         a(href="/auth/google") Login with Google

@@ -1,42 +1,41 @@
 extends layout
 
 block content
-  .ui.middle.aligned.center.aligned.grid
-    .column
-      .ui.teal.image.header
-        h1.content #{app_name} - Signup
+  .container(style="max-width:330px;")
+    center
+      img(style="max-height:160px;" src="/images/logo_top.png")
+      h1.content Signup
 
       if errors.length > 0
-        .ui.error.message
+        .alert.alert-danger(role="alert")
           each em in errors  
             li= em
-          end
-      end
-      form.ui.large.form(method="POST", action="/signup/return")
-        .ui.stacked.segment
-          .field
-            .ui.left.icon.input
-              i.user.icon
-              input(type="text", name="name", placeholder="Your Account Name", value="#{name}")
+      
+      form(method="POST", action="/signup/return")
+        p.input-group
+          span.input-group-addon
+            span.glyphicon.glyphicon-user(aria-hidden="true")
+          input.form-control(type="text", name="name", placeholder="Your Account Name", value="#{name}" aria-describedby="sizing-addon1")
+          
+        p.input-group
+          span.input-group-addon
+            span.glyphicon.glyphicon-envelope(aria-hidden="true")
+          input.form-control(type="email", name="email", placeholder="E-mail address", value="#{email}")
+          
+        .input-group
+          span.input-group-addon
+            span.glyphicon.glyphicon-console(aria-hidden="true")
+          input.form-control(type="password", name="password", placeholder="Password")
+        
+        p.input-group
+          span.input-group-addon
+            span.glyphicon.glyphicon-console(aria-hidden="true")
+          input.form-control(type="password", name="password_again", placeholder="Password Again")
 
-          .field
-            .ui.left.icon.input
-              i.mail.outline.icon
-              input(type="email", name="email", placeholder="E-mail address", value="#{email}")
+        input.btn.btn-block.btn-primary(type="submit" value="Signup")
 
-          .field
-            .ui.left.icon.input
-              i(class="lock icon")
-              input(type="password", name="password", placeholder="Password")
-              
-            .ui.left.icon.input
-              i(class="lock icon")
-              input(type="password", name="password_again", placeholder="PasswordAgain")
-
-          input.ui.fluid.large.teal.submit.button(type="submit" value="Signup")
-
-      .ui.message
+      p
         a(href="/login") Login with Email Address
-
-      .ui.message
+        
+      p
         a(href="/auth/google") Login with Google

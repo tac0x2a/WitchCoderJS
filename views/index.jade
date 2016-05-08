@@ -1,18 +1,14 @@
 extends layout
 
 block content
-  .ui.middle.aligned.center.aligned.grid(ng-controller='index as t')
-    .column
-      center
-        img.ui.small.image(src="/images/logo_top.png")
+  .container(ng-controller='index as t' style="max-width:330px;")
+    center
+      img(style="max-height:160px;" src="/images/logo_top.png")
       h1= app_name
       p #{welcome_msg} Registered {{t.count}} users.
-
-      .ui.message
-        a(href="/login") Login with Email Address
-
-      .ui.message
-        a(href="/auth/google") Login with Google
-
-      .ui.message
-        a(href="/signup") Signup
+      p
+        a.btn.btn-block.btn-primary(href="/signup") Signup
+      p
+        a.btn.btn-block.btn-primary(href="/auth/google") Login with Google
+      p
+        a.btn.btn-block.btn-primary(href="/login") Login with Email
