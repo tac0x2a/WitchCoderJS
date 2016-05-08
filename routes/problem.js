@@ -11,13 +11,13 @@ router.get('/', function(req, res, next) {
 router.get('/list', function(req, res, next) {
   Problem.find().populate('owner').exec(function(err, problems){
     if(err) return console.error(err);
-    res.render('problem_list', {problems: problems})
+    res.render('problem_list', {problems: problems, user: req.user})
   })
 });
 
 router.get('/new', function(req, res, next){
   if(!req.user){ res.redirect('/login') }
-  return res.render('problem_new')
+  return res.render('problem_new', {user: req.user})
 });
 
 router.post('/new', function(req, res, next){
@@ -44,7 +44,7 @@ router.post('/new', function(req, res, next){
   },
   function(err, problem){
     if(err) {
-      return res.render('problem_new', {title: title, problem: problem});
+      return res.render('problem_new', {title: title, problem: problem, user: req.user});
     }
     return res.redirect('/problem')
   });

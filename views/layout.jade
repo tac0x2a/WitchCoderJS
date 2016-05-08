@@ -25,10 +25,23 @@ html(ng-app="witch_coder")
         div.collapse.navbar-collapse.navbar-right(id='navbar')
           ul.nav.navbar-nav
             if(user)
-              li
-                a(href="/user")= user['name']
-              li
-                a(href="/logout") Logout
+              li.dropdown
+                a.dropdown-toggle(data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Problem
+                  span.caret                  
+                ul.dropdown-menu
+                  li
+                    a(href="/problem/list") Problem List
+                  li
+                    a(href="/problem/new") New Problem
+              
+              li.dropdown
+                a.dropdown-toggle(data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")= user['name']
+                  span.caret                  
+                ul.dropdown-menu
+                  li
+                    a(href="/user") My Page
+                  li
+                    a(href="/logout") Logout
             else
               li
                 a(href="/login") Login with Email
