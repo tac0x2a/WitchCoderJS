@@ -7,7 +7,7 @@ var User = require('../models/user.model');
 router.get('/', function(req, res, next) {
   var user = req.user
   if(user){
-    return res.render('user', { user: user });
+    return res.redirect('/user/' + user._id)
   }
   res.redirect('/login')
 });
@@ -18,7 +18,7 @@ router.get('/:user_id', function(req, res, next) {
       res.status(404);
       return res.send("User not found.")
     }
-    return res.render('user', { user: user });
+    return res.render('user', { user: req.user, view_user: user });
   })
 });
 

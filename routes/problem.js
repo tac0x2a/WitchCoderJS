@@ -2,7 +2,6 @@ var express = require('express');
 var auth    = require('../auth');
 var router  = express.Router();
 var Problem = require('../models/problem.model');
-var User = require('../models/user.model');
 
 router.get('/', function(req, res, next) {
   res.redirect('/problem/list')
@@ -46,8 +45,18 @@ router.post('/new', function(req, res, next){
     if(err) {
       return res.render('problem_new', {title: title, problem: problem, user: req.user});
     }
-    return res.redirect('/problem')
+    return res.redirect('/problem/' + problem._id)
   });
 });
+
+router.get('/:problem_id', function(req, res, next){
+  Problem.findById(req.params.problem_id).populate('owner').exec(function(err, problem){
+    if(err || problem == null){
+      res.status(404);
+      return res.send("Problem not found.")
+    }
+    return res.render('problem', { user: req.user, problem: problem });
+  })
+})
 
 module.exports = router;

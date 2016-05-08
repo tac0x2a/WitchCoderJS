@@ -2,7 +2,7 @@ extends layout
 
 block content  
   .container
-    h1.ui.header= user.name
-    h1= user.email
-    a(href='/user/#{user._id}')
-      h1= user._id
+    h1.ui.header= view_user.name
+    h1= view_user.email
+    a(href='/user/#{view_user._id}')
+      h1= view_user._id
