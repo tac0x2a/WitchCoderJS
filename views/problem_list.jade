@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .container
+    h1 ProblemList
+    
+    table.table.table-condensed.table-striped
+      each problem in problems
+        tr
+          td 
+            a(href='/problem/#{problem._id}')= problem.title
+          td
+            a(href='/user/#{problem.owner._id}') @#{problem.owner.name}
+          td #{problem.created.toLocaleString()}
+      
+    a(href="/problem/new") New Problem

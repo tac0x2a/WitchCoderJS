@@ -5,7 +5,7 @@ var Schema   = mongoose.Schema;
 var ProblemSchema = new Schema({
   title: { type: String, required: "Title is required." },
   question: { type: String, required: "Question is required." },
-  owner: { type: String, required: true },
+  owner: { type: Schema.Types.ObjectId, required: true, ref: 'User'},
 
   judge: [
     {

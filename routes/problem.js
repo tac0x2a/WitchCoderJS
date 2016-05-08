@@ -2,15 +2,21 @@ var express = require('express');
 var auth    = require('../auth');
 var router  = express.Router();
 var Problem = require('../models/problem.model');
+var User = require('../models/user.model');
 
 router.get('/', function(req, res, next) {
-  Problem.find(function(err, problems){
+  res.redirect('/problem/list')
+});
+
+router.get('/list', function(req, res, next) {
+  Problem.find().populate('owner').exec(function(err, problems){
     if(err) return console.error(err);
-    res.send(problems)
+    res.render('problem_list', {problems: problems})
   })
 });
 
 router.get('/new', function(req, res, next){
+  if(!req.user){ res.redirect('/login') }
   return res.render('problem_new')
 });
 
@@ -33,7 +39,7 @@ router.post('/new', function(req, res, next){
   Problem.create({
     title:    title,
     question: problem,
-    owner: "me",
+    owner: req.user._id.toString(),
     judge: judge
   },
   function(err, problem){
@@ -43,6 +49,5 @@ router.post('/new', function(req, res, next){
     return res.redirect('/problem')
   });
 });
-
 
 module.exports = router;
