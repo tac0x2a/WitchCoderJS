@@ -6,10 +6,14 @@ block content
     
     label Problem
     .well.well-lg= problem.question
-    
+  
     p ProblemID: 
       a(href="problem/#{problem._id}") #{problem._id}
     p ProblemMaster: 
       a(href="/user/#{problem.owner._id}") #{problem.owner.name}
     p Publish at: #{problem.created.toLocaleString()}
     p Revision: #{problem.revision}
+    
+    if user
+      a.btn.btn-block.btn-success(href="/problem/attempt/#{problem._id}") Try this Problem !!
+      

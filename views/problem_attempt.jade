@@ -1,0 +1,30 @@
+extends layout
+
+block content  
+  .container
+    h1 Attempt '#{problem.title}'
+    
+    label Problem
+    .well.well-lg= problem.question
+    
+    form(method="POST", action="/problem/attempt/#{problem._id}")
+    
+      .form-group
+        label(for='lang') Language
+        select.form-control(id='lang' name='language')
+          option Ruby
+    
+      .form-group.form-group-sm
+        label(for='code') Code
+        textarea.form-control(name='code' rows="8" placeholder='Show your spell...' id='code')
+      p
+        input.btn.btn-block.btn-danger(type="submit" value="Submit")
+
+    
+    p ProblemID: 
+      a(href="/problem/#{problem._id}") #{problem._id}
+    p ProblemMaster: 
+      a(href="/user/#{problem.owner._id}") #{problem.owner.name}
+    p Publish at: #{problem.created.toLocaleString()}
+    p Revision: #{problem.revision}
+    

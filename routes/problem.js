@@ -49,6 +49,32 @@ router.post('/new', function(req, res, next){
   });
 });
 
+router.get('/attempt/:problem_id', function(req, res, next){
+  if(!req.user){ res.redirect('/login') }
+
+  Problem.findById(req.params.problem_id).populate('owner').exec(function(err, problem){
+    if(err || problem == null){
+      res.status(404);
+      return res.send("Problem not found.")
+    }
+
+    // create attempt record here.
+
+    return res.render('problem_attempt', { user: req.user, problem: problem });
+  })
+})
+
+router.post('/attempt/:problem_id', function(req, res, next){
+
+  var attempt = {}
+  attempt.language    = req.body.language
+  attempt.code        = req.body.code
+  attempt.submit_time = Date.now()
+  attempt.problem_id  = req.params.problem_id
+
+  res.send(attempt)
+})
+
 router.get('/:problem_id', function(req, res, next){
   Problem.findById(req.params.problem_id).populate('owner').exec(function(err, problem){
     if(err || problem == null){
