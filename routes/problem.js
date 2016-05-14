@@ -2,6 +2,7 @@ var express = require('express');
 var auth    = require('../auth');
 var router  = express.Router();
 var Problem = require('../models/problem.model');
+var Attempt = require('../models/attempt.model');
 
 router.get('/', function(req, res, next) {
   res.redirect('/problem/list')
@@ -66,13 +67,26 @@ router.get('/attempt/:problem_id', function(req, res, next){
 
 router.post('/attempt/:problem_id', function(req, res, next){
 
-  var attempt = {}
-  attempt.language    = req.body.language
-  attempt.code        = req.body.code
-  attempt.submit_time = Date.now()
-  attempt.problem_id  = req.params.problem_id
+  var submit_time = Date.now() // ?
 
-  res.send(attempt)
+  //TODO kick judge here.
+
+  var language    = req.body.language
+  var code        = req.body.code
+
+  Attempt.create({
+    problem: req.params.problem_id,
+    player:  req.user,
+    language: language,
+    code:     code,
+    submited: submit_time,
+    judge_finished: Date.now()
+  }, function(err, attempt){
+    if(err){
+      return res.redirect('/attempt/' + req.params.problem_id)
+    }
+    return res.send(attempt)
+  })
 })
 
 router.get('/:problem_id', function(req, res, next){
