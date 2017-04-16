@@ -8,6 +8,8 @@ var AttemptSchema = new Schema({
   language:{type: String, required: true},
   code:    {type: String, required: true},
   judge: [{
+    input:    {type: String, required: true}, // stdin.
+    expected: {type: String, required: true}, //
     actual:  {type: String, required: true}, // stdout.
     time_ms: {type: Number, required: true}, //
     result:  {type: String, required: true}  // Judging, Accepted, Wrong, TimeExceeded, MemoryExceeded, RuntimeError, CompileError or InternalError

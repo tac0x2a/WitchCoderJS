@@ -60,7 +60,6 @@ router.get('/attempt/:problem_id', function(req, res, next){
     }
 
     // create attempt record here.
-
     return res.render('problem_attempt', { user: req.user, problem: problem });
   })
 })
@@ -69,25 +68,59 @@ router.post('/attempt/:problem_id', function(req, res, next){
 
   var submit_time = Date.now() // ?
 
-  //TODO kick judge here.
+  console.log(req.body);
 
-  var language    = req.body.language
-  var code        = req.body.code
+  let problemId = req.params.problem_id
+  let language    = req.body.language
+  let code        = req.body.code
 
-  Attempt.create({
-    problem: req.params.problem_id,
-    player:  req.user,
-    language: language,
-    code:     code,
-    submited: submit_time,
-    judge_finished: Date.now()
-  }, function(err, attempt){
-    if(err){
-      return res.redirect('/attempt/' + req.params.problem_id)
+  Problem.findById(req.params.problem_id).exec(function(err, problem){
+    if(err || problem == null){
+      res.status(404);
+      return res.send("Problem not found.")
     }
-    return res.send(attempt)
-  })
-})
+
+    let judge = problem.judge.map( (j) => {
+      // Kick judge.
+      const execSync = require('child_process').execSync;
+      const image   = 'docker-judge-ruby';
+      //const command = "echo '" + j.input + "' | ruby -e '" + j.code + "' ";
+      const command = "ruby -e '" + code + "' ";
+      const actual  =  ("" + execSync('docker run -i ' + image + ' ' + command )).trim();
+
+      const result = (j.expected == actual);
+
+      console.log(actual);
+
+      const judgeResult = {
+        input: j.input,
+        expected: j.expected,
+        actual: "" + actual,
+        time_ms: 42,
+        result: result
+      };
+
+      console.log(judgeResult);
+
+      return judgeResult;
+    });
+
+    // Store to DB
+    Attempt.create({
+      problem: problemId,
+      player:  req.user,
+      language: language,
+      code:     code,
+      submited: submit_time,
+      judge: judge,
+      judge_finished: Date.now()
+    }, function(err, attempt){
+      if(err){ return res.redirect('/attempt/' + req.params.problem_id) }
+
+      return res.send(attempt)
+    }) // end of Attempt.create
+  }) // end of Problem.findById
+}) // end of router.post('/attempt/:problem_id'
 
 router.get('/:problem_id', function(req, res, next){
   Problem.findById(req.params.problem_id).populate('owner').exec(function(err, problem){
