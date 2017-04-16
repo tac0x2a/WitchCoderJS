@@ -1,16 +1,16 @@
 # WitchCoder [![Build Status](https://travis-ci.org/tac0x2a/WitchCoder.svg?branch=master)](https://travis-ci.org/tac0x2a/WitchCoder)
 
-![](/doc/img/logo.png)
+![](./doc/img/logo.png)
 
 WitchCoder is online judge platform.
 
-# How to run
+# How to Development
 
 ## For Docker
 ```
 $ git clone git@github.com:tac0x2a/WitchCoder-devenv.git
 $ cd WitchCoder-devenv
-$ git clone git@github.com:tac0x2a/WitchCoder.git data/witchcoder
+$ git clone git@github.com:tac0x2a/WitchCoder.git witchcoder
 $ docker-compose build
 $ docker-compose pull
 $ docker-compose up -d
@@ -29,6 +29,10 @@ $ npm start
 ```
 
 then, connect docker container port 3000.
+
+
+# Environment Variables
++ `MONGODB_HOST` Mongodb hostname. 'localhost' is default value.
 
 
 #### Thanks

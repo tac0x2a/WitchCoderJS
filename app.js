@@ -19,7 +19,9 @@ app.locals = config
 
 // Connect to DB
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost/judge_sv'); //Todo: read from param file.
+let mongoHost = process.env['MONGODB_HOST'] || 'localhost';
+console.log("mongoHost:" + mongoHost);
+mongoose.connect('mongodb://' + mongoHost + '/judge_sv');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
