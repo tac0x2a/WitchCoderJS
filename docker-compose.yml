@@ -1,0 +1,19 @@
+dev:
+  restart: always
+  build: .
+  ports:
+    - "3000:3000"
+  volumes:
+    - .:/home/devenv/witchcoder
+    - /var/run/docker.sock:/var/run/docker.sock
+  links:
+    - mongo:mongodb
+
+  environment:
+    - MONGODB_HOST=mongodb
+
+mongo:
+  restart: always
+  image: mongo
+  volumes:
+    - ./mongodb:/data/db
