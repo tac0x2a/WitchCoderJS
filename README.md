@@ -8,12 +8,11 @@ WitchCoder is online judge platform.
 
 ## For Docker
 ```
-$ git clone git@github.com:tac0x2a/WitchCoder-devenv.git
-$ cd WitchCoder-devenv
-$ git clone git@github.com:tac0x2a/WitchCoder.git witchcoder
+$ git clone git@github.com:tac0x2a/WitchCoder.git
+$ cd WitchCoder
 $ docker-compose build
 $ docker-compose pull
-$ docker-compose up -d
+$ docker-compose up
 ```
 
 ## For Mac
